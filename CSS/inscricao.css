@@ -120,11 +120,16 @@ input:focus {
   transition: var(--transition);
 }
 
+#cursos:focus {
+  outline: none;
+  border-color: var(--text-sec);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
 
 #cursos option {
   background: var(--surface);
   color: var(--text-main);
-  
+
 }
 
 /* Document Cards */
