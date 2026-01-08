@@ -109,6 +109,24 @@ input:focus {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
 }
 
+#cursos {
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1rem;
+  border-radius: 0.75rem;
+  color: var(--text-main);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+
+#cursos option {
+  background: var(--surface);
+  color: var(--text-main);
+  
+}
+
 /* Document Cards */
 .docs-container {
   display: grid;
