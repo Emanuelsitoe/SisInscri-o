@@ -33,6 +33,21 @@ body {
   line-height: 1.5;
 }
 
+/*processando*/
+#processando{
+  text-align: center;
+  margin: 10px auto;
+  width: 150px;
+  border: none;
+  border-radius: 1rem;
+  padding: 20px;
+  background: var(--bg);
+  color: var(--text-main);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  display: none;
+}
+
 /* Header */
 .main-header {
   position: sticky;
@@ -92,7 +107,8 @@ body {
 }
 
 input[type="text"],
-input[type="tel"] {
+input[type="tel"],
+input[type="email"] {
   width: 100%;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -196,28 +212,79 @@ input:focus {
   border-radius: 0.5rem;
   color: var(--text-sec);
 }
+/*modal pagamento*/
+dialog {
+  margin: auto;
+  width: 90%;
+  max-width: 600px;
+  border: none;
+  border-radius: 1rem;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text-main);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
 
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#fecharpagamento {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-sec);
+  cursor: pointer;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+#fecharpagamento:hover {
+  color: var(--text-main);
+  transform: scale(1.1);
+}
 /* Payment */
+.section-group {
+  margin: 2rem;
+}
+
+dialog .section-group {
+  background: var(--bg);
+  color: var(--text-main);
+}
+
 .payment-header {
+  margin-top: 50px;
+  padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+dialog .payment-header {
+  margin-top: 0;
+}
+
 .badge-price {
+  padding: 10px;
   background: var(--surface);
   padding: 0.25rem 0.5rem;
   border-radius: 0.4rem;
   font-weight: 800;
   font-size: 0.75rem;
   border: 1px solid var(--border);
+  color: var(--text-main);
 }
 
 .payment-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  padding: 1.5rem;
+  padding: 3.5rem;
   border-radius: 1.25rem;
+  color: var(--text-main);
 }
 
 .mpesa-brand {
@@ -234,6 +301,10 @@ input:focus {
   font-weight: 900;
   border-radius: 4px;
   font-size: 0.7rem;
+}
+
+.mpesa-text {
+  color: var(--text-main);
 }
 
 .phone-wrapper {
@@ -261,9 +332,32 @@ input:focus {
   margin-top: 1rem;
 }
 
+dialog .section-label {
+  color: var(--text-sec);
+}
+
+dialog label {
+  color: var(--text-main);
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+dialog input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+}
+
+dialog .btn-submit {
+  background: var(--primary);
+  color: var(--white);
+}
+
 /* Footer */
 .sticky-footer {
-  position: fixed;
+  position: fixe;
   bottom: 0;
   left: 0;
   right: 0;
@@ -273,7 +367,7 @@ input:focus {
 }
 
 .btn-submit {
-  max-width: 768px;
+  max-width: 300px;
   margin: 0 auto;
   width: 100%;
   background: var(--primary);
@@ -290,8 +384,15 @@ input:focus {
   transition: var(--transition);
 }
 
+.btn-submit:hover {
+  background: var(--text-sec);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
 .btn-submit:active {
   transform: scale(0.98);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* Theme Toggle */
@@ -314,4 +415,98 @@ input:focus {
 
 .theme-toggle * {
   color: var(--text-main);
+}
+
+
+
+/* Alert Styles */
+@keyframes slideInAlert {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.alert-container {
+  margin: 2rem 0;
+  animation: slideInAlert 0.5s ease-out;
+}
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 2px solid;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+}
+
+.alert.alert-warning {
+  border-color: #FFC107;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+}
+
+.alert-icon {
+  font-size: 1.5rem;
+  color: #FFC107;
+  min-width: 24px;
+  animation: pulse 2s ease-in-out infinite;
+  margin-top: 0.25rem;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.alert-message {
+  font-size: 0.9rem;
+  color: var(--text-sec);
+  line-height: 1.5;
+}
+
+.alert:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 193, 7, 0.15);
+}
+
+/* Payment Button */
+#pagamento {
+  max-width: 190px;
+  margin: 90px auto 10px ;
+  width: 100%;
+  background: var(--primary);
+  color: var(--white);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
 }

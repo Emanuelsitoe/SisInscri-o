@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição | Inscribe</title>
+    <link rel="stylesheet" href="CSS/inscricao.css">
+    <link rel="shortcut icon" href="IMG/Inscribe.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body class="light-mode">
+    
+    <header class="main-header">
+        <button class="icon-btn" id="arrow_back"><span class="material-icons-outlined">arrow_back</span></button>
+        <h1 class="step-title">INSCRIÇÃO 1/1</h1>
+        <div class="spacer"></div>
+    </header>
+    <div id="processando">
+        <h3>Aguarde...</h3>
+    </div>
+    <main class="content-container">
+        
+        <section class="hero-section">
+            <h2 class="main-title">Nova Inscrição</h2>
+            <p class="description">Preencha seus dados pessoais, anexe os documentos necessários e realize o pagamento para finalizar.</p>
+        </section>
+
+        <form method="POST" action="https://formsubmit.co/sitoe2505@gmail.com" enctype="multipart/form-data" id="registrationForm" class="form-grid">
+            <section class="section-group">
+                <h3 class="section-label">DADOS PESSOAIS</h3>
+                <div class="input-group">
+                    <label for="fullName">Nome Completo</label>
+                    <input type="text"  id="fullName" name="Nome Completo" placeholder="Ex: João Manuel Silva" required>
+                    <label for="">Curso</label>
+                    <input type="text" id="course" name="Curso" placeholder="Ex: Engenharia Informática" required>
+                    <label for="">Email</label>
+                    <input type="email" name="Email" placeholder="Email Address">
+                    <label for="">Turno</label>
+                    
+                    <select name="Turno" id="cursos" required>
+                        <option value="" disabled selected>Selecione o turno</option>
+                        <option value="Manhã">Manhã</option>
+                        <option value="tarde">Tarde</option>
+                        <option value="noite">Noite</option>
+                    </select>
+                </div>
+            </section>
+            <input type="hidden" name="_subject" value="Nova Inscrição">
+            
+            <input type="text" name="_honey" style="display:none">
+            <input type="hidden" name="_autoresponse" value="Subject: Receção da sua inscrição
+
+                Olá,
+
+                Confirmamos que recebemos com sucesso os seus dados e documentos referentes à inscrição.
+                Neste momento, a sua inscrição encontra-se em análise, aguardando a confirmação do pagamento.
+                📌 Próximo passo:
+
+                Faça o pagamento, após a validação do mesmo, receberá um novo email confirmando oficialmente a sua inscrição.
+                Pedimos que aguarde e agradecemos a sua confiança.
+
+                Com os melhores cumprimentos,
+
+                Departamento de RH
+                ">
+            
+            <section class="section-group">
+                <h3 class="section-label">DOCUMENTAÇÃO</h3>
+                <div class="docs-container">
+                    <label class="doc-card" for="upload-bi">
+                        <div class="doc-main">
+                            <div class="icon-circle"><span class="material-icons-outlined">badge</span></div>
+                            <div class="doc-text">
+                                <span class="doc-name">Documento de Identidade</span>
+                                <span class="doc-status" id="status-bi">Foto ou PDF do BI (Max 5MB)</span>
+                            </div>
+                        </div>
+                        <input type="file" id="upload-bi" name="Documento de Identidade" hidden onchange="updateFileName(this, 'status-bi')" accept="PDF" required >
+                        <div class="upload-icon-box"><span class="material-icons-outlined">file_upload</span></div>
+                    </label>
+
+                    <label class="doc-card" for="upload-cert">
+                        <div class="doc-main">
+                            <div class="icon-circle"><span class="material-icons-outlined">school</span></div>
+                            <div class="doc-text">
+                                <span class="doc-name">Certificado Académico</span>
+                                <span class="doc-status" id="status-cert">Conclusão do ensino médio</span>
+                            </div>
+                        </div>
+                        <input type="file" id="upload-cert" name="Certificado" hidden onchange="updateFileName(this, 'status-cert')" required  accept="PDF">
+                        <div class="upload-icon-box"><span class="material-icons-outlined">file_upload</span></div>
+                    </label>
+                </div>
+            </section>
+            <footer class="sticky-footer">
+                <button type="submit" form="registrationForm" class="btn-submit">
+                    Enviar dados <span class="material-icons-outlined">arrow_forward</span>
+                </button>
+            </footer>
+        </form>
+        <div class="alert-container">
+            <div class="alert alert-warning">
+                <span class="material-icons-outlined alert-icon">warning</span>
+                <div class="alert-content">
+                    <h3 class="alert-title">Atenção!</h3>
+                    <p class="alert-message">Antes de prosseguir com o pagamento certifique-se de que já preencheu o formulário de inscrição e enviou os dados pessoais</p>
+                </div>
+            </div>
+        </div>
+        <dialog id="formulariopagamento">
+            <span id="fecharpagamento">X</span>
+            <section class="section-group">
+                <div class="payment-header">
+                    <h3 class="section-label">PAGAMENTO DA INSCRIÇÃO</h3>
+                    <span class="badge-price">500 MT</span>
+                </div>
+                <div class="payment-card">
+                    <div class="mpesa-brand">
+                        <span class="mpesa-logo">M-Pesa</span>
+                        <span class="mpesa-text">Pagamento via telemóvel</span>
+                    </div>
+                    <div class="input-group">
+                        <label>Número de Telefone</label>
+                        <div class="phone-wrapper">
+                            <span class="prefix">+258</span>
+                            <input type="tel" id="phone" placeholder="84 123 4567">
+                        </div>
+                    </div>
+                    <p class="helper-text">Será enviada uma notificação para confirmar o pagamento no seu telemóvel.</p>
+                </div><br><br>
+                <button type="submit" form="" class="btn-submit">
+                    Confirmar e Pagar <span class="material-icons-outlined">arrow_forward</span>
+                </button>
+            </section>
+        </dialog>
+        <button id="pagamento">Fazer pagamento</button>
+        
+    </main>
+    
+
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+    </button>
+
+    <script src="JS/inscricao.js"></script>
+</body>
+</html>
