@@ -1,0 +1,118 @@
+:root {
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --border: #e4e4e7;
+  --text-main: #18181b;
+  --text-sec: #71717a;
+  --primary: #18181b;
+  --mpesa: #DC0000;
+  --white: #ffffff;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-mode {
+  --bg: #09090b;
+  --surface: #18181b;
+  --border: #27272a;
+  --text-main: #f4f4f5;
+  --text-sec: #a1a1aa;
+  --primary: #27272a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  transition: var(--transition);
+  line-height: 1.5;
+}
+/*processando*/
+#processando{
+  text-align: center;
+  margin: 10px auto;
+  width: 150px;
+  border: none;
+  border-radius: 1rem;
+  padding: 20px;
+  background: var(--bg);
+  color: var(--text-main);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  display: none;
+}
+/* Header */
+.main-header {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  z-index: 100;
+}
+
+.step-title {
+  font-size: 0.75rem;
+  color: var(--text-sec);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* Content */
+.content-container {
+    
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 8rem;
+}
+
+.content-container img{
+    width: 500px;
+}
+
+.main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  color: var(--text-sec);
+  margin-bottom: 2.5rem;
+}
+h3{
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.theme-toggle * {
+  color: var(--text-main);
+}

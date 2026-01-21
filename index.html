@@ -1,42 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-Vindo | Inscribe</title>
-    <link rel="stylesheet" href="CSS/index.css">
-    <link rel="shortcut icon" href="IMG/Inscribe.png" type="image/x-icon">
+    <title>Inscribe | Bem-vindo</title>
+    <link rel="stylesheet" href="CSS/inscricao.css">
+    <link rel="stylesheet" href="CSS/welcome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <header class="logo-area">
-            <img src="IMG/Inscribe.png" alt="">
-        </header>
+<body class="light-mode">
 
-        <main class="content-area">
-            <h1 class="main-title">
-                INSCR<span class="highlight">I</span>BE
-            </h1>
+    <div class="welcome-wrapper">
+        <div class="logo-section fade-in">
+            <img src="IMG/Inscribe.png" alt="Inscribe Logo" class="main-logo">
+        </div>
 
-            <section class="info-section">
-                <p>INSCRIBE é a sua plataforma moderna e segura para realização de inscrições online</p>
-            </section>
+        <main class="welcome-content">
+            <h1 class="hero-title slide-up">Modernize sua forma de pagar e inscrever.</h1>
+            <p class="hero-description slide-up-delay">
+                A plataforma moçambicana que conecta você às suas instituições de forma rápida, segura e totalmente digital.
+            </p>
 
-            <section class="actions">
-                <button id="startButton" class="btn primary-btn">
-                    Começar
-                </button>
-                <button class="btn secondary-btn" onclick="window.location.href='#'">
-                    Saiba Mais
-                </button>
-            </section>
+            <div class="cta-container slide-up-extra">
+                <a href="instituicoes.html" class="btn-start">
+                    <span>Iniciar</span>
+                    <span class="material-icons-outlined">arrow_forward</span>
+                </a>
+                
+                <a href="sobre.html" class="btn-about">
+                    <span class="material-icons-outlined">info</span>
+                    <span>Sobre o Inscribe</span>
+                </a>
+            </div>
         </main>
 
-        <footer class="footer">
-            <p>Soluções Tecnológicas &copy; 2026 Todos os direitos reservados.</p>
-        </footer>
+        <div class="background-glow"></div>
     </div>
 
-    <script src="JS/index.js"></script>
+    <script src="JS/inscricao.js"></script>
 </body>
 </html>

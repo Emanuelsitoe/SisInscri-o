@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscribe | Selecionar Instituição</title>
+    <link rel="stylesheet" href="CSS/inscricao.css">
+    <link rel="stylesheet" href="CSS/selecao.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body class="light-mode">
+
+    <header class="main-header fade-in">
+        <a href="index.html" class="icon-btn"><span class="material-icons-outlined">arrow_back</span></a>
+        <div class="logo-mini">
+            <img src="IMG/Inscribe.png" alt="Inscribe" class="mini-logo-img">
+        </div>
+        <div class="spacer"></div>
+    </header>
+
+    <main class="content-container">
+        <section class="hero-section fade-in">
+            <h2 class="main-title">Onde deseja atuar?</h2>
+            <p class="description">Pesquise e selecione a instituição para realizar sua inscrição ou o pagamento de mensalidade.</p>
+            
+            <div class="search-wrapper">
+                <span class="material-icons-outlined search-icon">search</span>
+                <input type="text" id="instSearch" placeholder="Ex: Universidade, Escola, Igreja..." onkeyup="filterInstitutions()">
+            </div>
+        </section>
+
+        <section class="inst-grid slide-up" id="institutionGrid">
+            
+            <div class="inst-card" data-name="Turma dos Revoltados TR">
+                <div class="inst-logo-box">
+                    <img src="IMG/TR.jfif" alt="TR">
+                </div>
+                <div class="inst-details">
+                    <h3 class="inst-name">Turma dos Revoltados</h3>
+                    <p class="inst-type">Preparação para exames</p>
+                    <div class="inst-actions">
+                        <a href="index.html?inst=uem&type=inscricao" class="act-btn">Entrar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inst-card" data-name="Elton Proficional Traning Centre EPTC">
+                <div class="inst-logo-box">
+                    <img src="IMG/eptc.jpg" alt="Escola">
+                </div>
+                <div class="inst-details">
+                    <h3 class="inst-name">EPTC</h3>
+                    <p class="inst-type">Ensino técnico profissional</p>
+                    <div class="inst-actions">
+                        <a href="index.html?inst=escola&type=inscricao" class="act-btn">Entrar</a>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </section>
+
+        <div id="noResults" class="hidden">
+            <span class="material-icons-outlined">search_off</span>
+            <p>Nenhuma instituição encontrada.</p>
+        </div>
+    </main>
+
+    <button class="theme-toggle fade-in" onclick="toggleTheme()">
+        <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+    </button>
+
+    <script src="JS/selecao.js"></script>
+</body>
+</html>

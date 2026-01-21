@@ -4,14 +4,12 @@ arrow_back.addEventListener("click", (e) => {
     
     setTimeout(() => {
         Processando.style.display = "block";
-    }, 400);
+    }, 1000);
     setInterval(() => {
         window.location.href = '../index.html';
     })
     
 })
-//Processando
-const Processando = document.getElementById("processando")
 
  /* Atualiza o nome do arquivo com animação e cor de sucesso
  */
@@ -34,9 +32,9 @@ function updateFileName(input, statusId) {
     }
 }
 
-/**
- * Alternar entre modo claro e escuro (Persistente)
- */
+
+ // Alternar entre modo claro e escuro (Persistente)
+ 
 function toggleTheme() {
     const isDark = document.body.classList.toggle('dark-mode');
     document.body.classList.toggle('light-mode', !isDark);

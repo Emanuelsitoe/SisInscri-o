@@ -1,0 +1,245 @@
+/* Layout Principal */
+.welcome-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+    position: relative;
+    background: radial-gradient(circle at top right, rgba(220, 0, 0, 0.05), transparent);
+}
+
+/* Estilo do Logo */
+.logo-placeholder {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+}
+
+.logo-placeholder span:first-child {
+    font-size: 2.5rem;
+    color: var(--mpesa);
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Tipografia Hero */
+.hero-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-sec);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+/* Botões de Ação */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+@media (min-width: 768px) {
+    .action-buttons { flex-direction: row; justify-content: center; }
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.btn-secondary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 1.2rem 2.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+/* Animações Keyframes */
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up { animation: slideUpFade 1s ease-out forwards; }
+.slide-up-delay { opacity: 0; animation: slideUpFade 1s ease-out 0.3s forwards; }
+.slide-up-extra { opacity: 0; animation: slideUpFade 1s ease-out 0.6s forwards; }
+
+/* Formas Decorativas */
+.floating-shapes .shape {
+    position: absolute;
+    z-index: -1;
+    background: var(--mpesa);
+    opacity: 0.03;
+    filter: blur(50px);
+}
+
+.circle { width: 300px; height: 300px; border-radius: 50%; top: -50px; left: -50px; }
+.square { width: 200px; height: 200px; bottom: 50px; right: 20px; transform: rotate(45deg); }
+/* Container do Logo solicitado */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2.5rem;
+}
+
+.system-logo {
+    width: px; /* Ajuste conforme o seu logo */
+    height: auto;
+    object-fit: contain;
+}
+
+.welcome-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Logo */
+.main-logo {
+    height: 180px; /* Tamanho otimizado para destaque */
+    width: auto;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+/* Tipografia */
+.hero-title {
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: var(--text-sec);
+    max-width: 550px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+/* Botões Estilizados */
+.cta-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 450px;
+}
+
+@media (min-width: 768px) {
+    .cta-container { flex-direction: row; justify-content: center; }
+}
+.cta-container {
+    margin: auto;
+}
+.btn-start {
+    margin: auto;
+    background: var(--primary);
+    color: white;
+    padding: 1.25rem 2.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 10px 20px rgba(24, 24, 27, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-start:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(24, 24, 27, 0.3);
+    background: #000;
+}
+
+.btn-about {
+    background: var(--surface);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 1.25rem 2.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-about:hover {
+    background: var(--bg);
+    border-color: var(--text-main);
+}
+
+/* Efeito de Fundo */
+.background-glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: var(--mpesa);
+    filter: blur(120px);
+    opacity: 0.05;
+    top: -100px;
+    right: -100px;
+    z-index: 0;
+}
+
+/* Animações */
+.fade-in { animation: fadeIn 1s ease; }
+.slide-up { animation: slideUp 0.8s ease forwards; }
+.slide-up-delay { opacity: 0; animation: slideUp 0.8s ease 0.2s forwards; }
+.slide-up-extra { opacity: 0; animation: slideUp 0.8s ease 0.4s forwards; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { 
+    from { opacity: 0; transform: translateY(30px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
