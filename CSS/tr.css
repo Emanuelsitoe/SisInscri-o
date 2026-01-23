@@ -1,0 +1,49 @@
+:root {
+  --bg: #ffffff; --surface: #f8f9fa; --border: #e4e4e7;
+  --text-main: #18181b; --text-sec: #71717a;
+  --primary: #18181b; --mpesa: #DC0000; --transition: all 0.3s ease;
+}
+
+.dark-mode {
+  --bg: #09090b; --surface: #18181b; --border: #27272a;
+  --text-main: #f4f4f5; --text-sec: #a1a1aa;
+}
+
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); transition: var(--transition); overflow-x: hidden; }
+
+/* Layout SPA */
+.content-container { max-width: 700px; margin: 0 auto; padding: 2rem 1rem; }
+.fade-out { opacity: 0; transform: translateY(10px); transition: 0.3s; }
+.fade-in { animation: fadeIn 0.5s forwards; }
+
+/* Header do Perfil (Inspirado no desktop.html) */
+.inst-hero { margin-bottom: 4rem; position: relative; }
+.inst-cover { height: 160px; border-radius: 1.5rem; overflow: hidden; background: #eee; }
+.cover-img { width: 100%; height: 100%; object-fit: cover; }
+.inst-profile-info { position: absolute; bottom: -30px; left: 1rem; display: flex; align-items: flex-end; gap: 1rem; }
+.inst-logo-large { width: 90px; height: 90px; border-radius: 1.5rem; border: 4px solid var(--bg); overflow: hidden; background: white; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+.inst-logo-large img { width: 100%; }
+
+/* Cards de Ação */
+.action-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.action-card { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; border-radius: 1.25rem; cursor: pointer; transition: 0.3s; }
+.action-card:hover { border-color: var(--text-main); transform: translateY(-5px); }
+.action-icon { width: 45px; height: 45px; background: var(--primary); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+.icon-alt { background: var(--mpesa); }
+
+/* Modal M-Pesa Moderno */
+.modern-modal { border: none; border-radius: 2rem; padding: 0; width: 90%; max-width: 450px; background: var(--bg); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+.modern-modal::backdrop { background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
+.modal-body { padding: 2rem; position: relative; }
+.close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; cursor: pointer; color: var(--text-sec); }
+
+.payment-card { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; border-radius: 1.5rem; margin: 1.5rem 0; }
+.mpesa-logo { background: var(--mpesa); color: white; padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 900; font-size: 0.8rem; }
+
+/* Botões e Inputs */
+.btn-primary-full { width: 100%; background: var(--primary); color: white; padding: 1.25rem; border-radius: 1rem; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; }
+.btn-primary-full:hover { opacity: 0.9; transform: scale(0.99); }
+
+input[type="text"], input[type="tel"] { width: 100%; background: var(--surface); border: 1px solid var(--border); padding: 1rem; border-radius: 0.8rem; color: var(--text-main); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }

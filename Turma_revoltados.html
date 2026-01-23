@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscribe | Turma dos Revoltados</title>
+    <link rel="stylesheet" href="CSS/turma_revoltados.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body class="light-mode">
+
+    <header class="main-header">
+        <a href="instituicoes.html" class="icon-btn"><span class="material-icons-outlined">arrow_back</span></a>
+        <h1 class="step-title">INSCRIBE</h1>
+        <div class="spacer"></div>
+    </header>
+
+    <main class="content-container" id="main-view">
+        <div id="dynamic-content">
+            <section class="inst-profile">
+                <div class="inst-hero">
+                    <div class="inst-cover">
+                        <img src="IMG/capaTR.jpg" alt="Capa" class="cover-img">
+                    </div>
+                    <div class="inst-profile-info">
+                        <div class="inst-logo-large">
+                            <img src="IMG/TR.jfif" alt="Logo" onerror="this.src='https://ui-avatars.com/api/?name=Turma+Revoltados&background=18181b&color=fff'">
+                        </div>
+                        <div class="inst-text">
+                            <h2 class="inst-title">Turma dos Revoltados</h2>
+                            <p class="inst-tagline"><span class="material-icons-outlined">verified</span> Instituição Verificada</p>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="inst-about slide-up">
+                    <h3 class="section-label">SOBRE NÓS</h3>
+                    <p class="inst-description">Transformamos curiosidade em competência técnica. Escolha abaixo o que deseja realizar hoje.</p>
+                </section>
+
+                <section class="services-grid slide-up-delay">
+                    <h3 class="section-label">SERVIÇOS DISPONÍVEIS</h3>
+                    <div class="action-cards">
+                        <div class="action-card" onclick="loadForm('inscricao')">
+                            <div class="action-icon"><span class="material-icons-outlined">assignment_ind</span></div>
+                            <div class="action-info">
+                                <h4>Fazer Inscrição</h4>
+                                <p>Admissão para novos cursos e turmas.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" onclick="loadForm('mensalidade')">
+                            <div class="action-icon icon-alt"><span class="material-icons-outlined">payments</span></div>
+                            <div class="action-info">
+                                <h4>Mensalidades</h4>
+                                <p>Pagamento de quotas mensais via M-Pesa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+        <dialog id="formulariopagamento">
+            <span id="fecharpagamento">X</span>
+            <section class="section-group">
+                <div class="payment-header">
+                    <h3 class="section-label">PAGAMENTO DA INSCRIÇÃO</h3>
+                    <span class="badge-price">500 MT</span>
+                </div>
+                <div class="payment-card">
+                    <div class="mpesa-brand">
+                        <span class="mpesa-logo">M-Pesa</span>
+                        <span class="mpesa-text">Pagamento via telemóvel</span>
+                    </div>
+                    <div class="input-group">
+                        <label>Número de Telefone</label>
+                        <div class="phone-wrapper">
+                            <span class="prefix">+258</span>
+                            <input type="tel" id="phone" placeholder="84 123 4567">
+                        </div>
+                    </div>
+                    <p class="helper-text">Será enviada uma notificação para confirmar o pagamento no seu telemóvel.</p>
+                </div><br><br>
+                <button type="submit" form="" class="btn-submit">
+                    Confirmar e Pagar <span class="material-icons-outlined">arrow_forward</span>
+                </button>
+            </section>
+        </dialog>
+    </main>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+    </button>
+    <script src="JS/turma_revoltados.js"></script>
+</body>
+</html>

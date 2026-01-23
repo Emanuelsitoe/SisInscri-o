@@ -1,15 +1,3 @@
-//seta para voltar
-let arrow_back = document.getElementById("arrow_back")
-arrow_back.addEventListener("click", (e) => {
-    
-    setTimeout(() => {
-        Processando.style.display = "block";
-    }, 1000);
-    setInterval(() => {
-        window.location.href = '../index.html';
-    })
-    
-})
 
  /* Atualiza o nome do arquivo com animação e cor de sucesso
  */
