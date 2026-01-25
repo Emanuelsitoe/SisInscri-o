@@ -875,6 +875,20 @@ input[type="file"]:focus {
    ESTILO PROFISSIONAL PARA SELECT DE CURSOS
    ========================================================================== */
 
+.btn-primary-full:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: var(--text-sec);
+}
+
+/* Animação para os cards de documentos ao serem preenchidos */
+.doc-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-view {
+    animation: slideUp 0.6s ease-out forwards;
+}
 /* Container do Select */
 .input-group select {
   width: 100%;
