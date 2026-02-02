@@ -1189,6 +1189,158 @@ input[type="file"]:focus {
   animation: shimmer 1.5s infinite;
 }
 
+/* Cards de Instrução M-Pesa */
+.instructions-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.inst-step {
+    font-size: 0.85rem;
+    color: var(--text-sec);
+    margin-bottom: 0.5rem;
+}
+
+.copy-box, .ref-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    border-radius: 0.8rem;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.copy-box:hover, .ref-box:hover {
+    border-color: var(--text-main);
+    transform: scale(1.02);
+}
+
+.copy-icon {
+    font-size: 1.2rem;
+    color: var(--text-sec);
+}
+
+.ref-box {
+    border: 2px dashed var(--text-main);
+    background: rgba(24, 24, 27, 0.03);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.warning-text {
+    font-size: 0.7rem;
+    color: #e11d48;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+}
+
+.confirmation-form label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.confirmation-form input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+
+.hidden { display: none; }
+
+.invoice-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    margin-top: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed var(--border);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.invoice-badge {
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+.invoice-details p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.mpesa-instructions {
+    background: rgba(220, 0, 0, 0.05);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin: 1.5rem 0;
+}
+
+.mpesa-instructions h4 {
+    color: #DC0000;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.pay-row {
+    display: flex;
+    justify-content: space-between;
+    background: var(--bg);
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+}
+
+.transaction-input {
+    margin-top: 2rem;
+}
+
+.transaction-input input {
+    border: 2px solid var(--primary) !important;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: var(--text-sec);
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-decoration: underline;
+}
+
 /* Dark Mode */
 .dark-mode .action-buttons {
   background: var(--surface);

@@ -2,18 +2,15 @@
 // CONTROLE DE NAVEGAÇÃO
 // ============================================
 
-// Variável para rastrear onde estamos (perfil, inscricao, mensalidade)
 let currentView = 'perfil';
 
 function loadForm(type) {
     const container = document.getElementById('dynamic-content');
     const mainHeader = document.querySelector('.main-header');
     
-    // Animação de saída
     container.classList.add('fade-out');
 
     setTimeout(() => {
-        // Atualizar título do header
         let titleElement = mainHeader.querySelector('.step-title');
         if (!titleElement) {
             titleElement = document.createElement('h1');
@@ -24,7 +21,6 @@ function loadForm(type) {
         if (type === 'inscricao') {
             titleElement.innerText = "NOVA INSCRIÇÃO";
             container.innerHTML = renderInscricaoForm();
-            // Reinicializar listeners após renderizar o formulário
             initFormListeners();
         } else {
             titleElement.innerText = "PAGAMENTO DE MENSALIDADE";
@@ -32,276 +28,214 @@ function loadForm(type) {
             initFormListeners();
         }
         
-        // Remover fade-out e adicionar fade-in
         container.classList.remove('fade-out');
         container.classList.add('fade-in');
         
-        // Remover fade-in após a animação completar
         setTimeout(() => {
             container.classList.remove('fade-in');
         }, 300);
-        
-        // Inicializar listeners dos botões
-        initActionButtons();
         
         currentView = type;
         window.scrollTo(0, 0);
     }, 300);
 }
 
-function backToMenu() {
-    const container = document.getElementById('dynamic-content');
-    
-    // Animação de saída
-    container.classList.add('fade-out');
-
-    setTimeout(() => {
-        // Recarregar a página para voltar ao estado original
-        location.reload();
-    }, 300);
-}
-
-function handleBack() {
-    if (currentView === 'perfil') {
-        window.location.href = 'selecao_servico.html';
-    } else {
-        location.reload(); // Retorna ao perfil original da instituição
-    }
-}
-
 // ============================================
-// TEMPLATES DOS FORMULÁRIOS
+// COMPONENTES DE INTERFACE (RENDERIZAÇÃO)
 // ============================================
+
+// ... (mantenha o loadForm e as funções de tema)
 
 function renderInscricaoForm() {
     return `
-        <div class="form-view slide-up">
+        <div class="form-view fade-in" id="registration-container">
             <h2 class="main-title">Nova Inscrição</h2>
-            <p class="description">Preencha os campos obrigatórios para liberar o pagamento.</p>
+            <p class="description">Preencha seus dados para gerar sua fatura de inscrição.</p>
             
-            <form id="registrationForm" class="form-grid">
-                <div class="section-group">
-                    <h3 class="section-label">DADOS PESSOAIS</h3>
-                    <div class="input-group">
-                        <label>Nome Completo *</label>
-                        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+            <form id="mainRegistrationForm" action="/seu-endpoint-de-submissao" method="POST" enctype="multipart/form-data">
+                <div id="step-1">
+                    <div class="section-group">
+                        <h3 class="section-label">DADOS PESSOAIS</h3>
+                        <div class="input-group">
+                            <label>Nome Completo *</label>
+                            <input type="text" name="nome" id="nome_aluno" placeholder="Como no BI" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Contacto *</label>
+                            <input type="tel" id="phone" name="telefone" placeholder="8x xxx xxxx" >
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label>E-mail / Contacto *</label>
-                        <input type="text" id="contact" name="contacto" placeholder="8x xxx xxxx" required>
+                    <div class="select-curso">
+                        <h3 class="section-label">SELEÇÃO DA(S) DISCIPLINA(S)</h3>
+                        <div class="input-group">
+                            <label for="curso">DISCIPLINA 1 *</label>
+                            <select id="curso1" name="disciplina1" >
+                                <option value="" disabled selected>Selecione a disciplina desejada</option>
+                                <option value="portugues">Português</option>
+                                <option value="Matematica">Matemática</option>
+                                <option value="Fisica">Física</option>
+                                <option value="quimica">Química</option>
+                                <option value="historia">História</option>
+                                <option value="biologia">Biologia</option>
+                                <option value="geografia">Geografia</option>
+                                <option value="desenho">Desenho</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="curso">DISCIPLINA 2 </label>
+                            <select id="curso" name="disciplina2">
+                                <option value="" disabled selected>Selecione a disciplina desejada</option>
+                                <option value="portugues">Português</option>
+                                <option value="matematica">Matemática</option>
+                                <option value="fisica">Física</option>
+                                <option value="quimica">Química</option>
+                                <option value="historia">História</option>
+                                <option value="biologia">Biologia</option>
+                                <option value="geografia">Geografia</option>
+                                <option value="desenho">Desenho</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="curso">DISCIPLINA 3 </label>
+                            <select id="curso" name="disciplina3" >
+                                <option value="" disabled selected>Selecione a disciplina desejada</option>
+                                <option value="portugues">Português</option>
+                                <option value="matematica">Matemática</option>
+                                <option value="fisica">Física</option>
+                                <option value="quimica">Química</option>
+                                <option value="historia">História</option>
+                                <option value="biologia">Biologia</option>
+                                <option value="geografia">Geografia</option>
+                                <option value="desenho">Desenho</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="select-curso">
-                    <h3 class="section-label">SELEÇÃO DA(S) DISCIPLINA(S)</h3>
-                    <div class="input-group">
-                        <label for="curso">DISCIPLINA 1 *</label>
-                        <select id="curso" name="curso" required>
-                            <option value="" disabled selected>Selecione a disciplina desejada</option>
-                            <option value="portugues">Português</option>
-                            <option value="matematica">Matemática</option>
-                            <option value="fisica">Física</option>
-                            <option value="quimica">Química</option>
-                            <option value="historia">História</option>
-                            <option value="biologia">Biologia</option>
-                            <option value="geografia">Geografia</option>
-                            <option value="desenho">Desenho</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="curso">DISCIPLINA 2 </label>
-                        <select id="curso" name="curso">
-                            <option value="" disabled selected>Selecione a disciplina desejada</option>
-                            <option value="portugues">Português</option>
-                            <option value="matematica">Matemática</option>
-                            <option value="fisica">Física</option>
-                            <option value="quimica">Química</option>
-                            <option value="historia">História</option>
-                            <option value="biologia">Biologia</option>
-                            <option value="geografia">Geografia</option>
-                            <option value="desenho">Desenho</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="curso">DISCIPLINA 3 </label>
-                        <select id="curso" name="curso" >
-                            <option value="" disabled selected>Selecione a disciplina desejada</option>
-                            <option value="portugues">Português</option>
-                            <option value="matematica">Matemática</option>
-                            <option value="fisica">Física</option>
-                            <option value="quimica">Química</option>
-                            <option value="historia">História</option>
-                            <option value="biologia">Biologia</option>
-                            <option value="geografia">Geografia</option>
-                            <option value="desenho">Desenho</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="section-group">
-                    <h3 class="section-label">DOCUMENTAÇÃO</h3>
-                    <div class="docs-container">
-                        <label class="doc-card" for="up-bi">
-                            <div class="doc-main">
-                                <div class="icon-circle"><span class="material-icons-outlined">badge</span></div>
-                                <div class="doc-text">
-                                    <span class="doc-name">BI / DIRE *</span>
-                                    <span class="doc-status" id="st-bi">Selecione o arquivo</span>
-                                </div>
+                    <div class="section-group">
+                        <h3 class="section-label">DOCUMENTAÇÃO</h3>
+                        <div class="docs-container">
+                            <div class="doc-upload-minimal">
+                                <input type="file" name="doc_bi" id="up-bi" hidden onchange="updateFileName(this, 'status-bi')" required>
+                                <label for="up-bi"><span class="material-icons-outlined">badge</span> <span id="status-bi">BI ou DIRE</span></label>
                             </div>
-                            <input type="file" id="up-bi" hidden onchange="updateFileDisplay(this, 'st-bi')" required>
-                            <div class="upload-icon-box"><span class="material-icons-outlined">file_upload</span></div>
-                        </label>
-
-                        <label class="doc-card" for="up-cert">
-                            <div class="doc-main">
-                                <div class="icon-circle"><span class="material-icons-outlined">school</span></div>
-                                <div class="doc-text">
-                                    <span class="doc-name">Certificado *</span>
-                                    <span class="doc-status" id="st-cert">Certificado de Habilitações</span>
-                                </div>
+                            <div class="doc-upload-minimal">
+                                <input type="file" name="doc_cert" id="up-cert" hidden onchange="updateFileName(this, 'status-cert')" required>
+                                <label for="up-cert"><span class="material-icons-outlined">school</span> <span id="status-cert">Certificado</span></label>
                             </div>
-                            <input type="file" id="up-cert" hidden onchange="updateFileDisplay(this, 'st-cert')" required>
-                            <div class="upload-icon-box"><span class="material-icons-outlined">file_upload</span></div>
-                        </label>
+                        </div>
                     </div>
+
+                    <button type="button" class="btn-primary-full" onclick="gerarFatura()">
+                        Gerar Fatura e Instruções <span class="material-icons-outlined">description</span>
+                    </button>
                 </div>
 
-                <button type="button" class="btn-submit-form" id="pagamento" onclick="checkAndPay()">
-                    Enviar Dados e Pagar <span class="material-icons-outlined">arrow_forward</span>
-                </button>
+                <div id="step-2" class="hidden">
+                    <div class="invoice-card slide-up">
+                        <div class="invoice-header">
+                            <span class="invoice-badge">FATURA PROFORMA</span>
+                            <span class="invoice-ref" id="display-ref">#---</span>
+                        </div>
+                        
+                        <div class="invoice-details">
+                            <p><strong>Candidato:</strong> <span id="confirm-nome">---</span></p>
+                            <p><strong>Telefone:</strong> <span id="confirm-numero">---</span></p>
+                            <p><strong>Serviço:</strong> Inscrição Anual</p>
+                            <p><strong>Valor:</strong> <mark>500.00 MT</mark></p>
+                        </div>
+
+                        <div class="mpesa-instructions">
+                            <h4>PAGAMENTO VIA M-PESA</h4>
+                            <div class="pay-row" onclick="copiarTexto('841234567')">
+                                <span>Número: <strong>84 123 4567</strong></span>
+                                <span class="material-icons-outlined">content_copy</span>
+                            </div>
+                            <div class="pay-row" onclick="copiarTexto(document.getElementById('input-ref').value)">
+                                <span>Referência: <strong id="confirm-ref">---</strong></span>
+                                <span class="material-icons-outlined">content_copy</span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="referencia_sistema" id="input-ref">
+                        
+                        <div class="input-group transaction-input">
+                            <label>Código da Transação (SMS M-Pesa) *</label>
+                            <input type="text" name="codigo_transacao" id="cod_mpesa" placeholder="Ex: RJ82X..." required>
+                        </div>
+
+                        <div class="invoice-footer">
+                            <button type="button" class="btn-primary-full" onclick="mostrarFaturaDownload()">
+                                Confirmar Pagamento <span class="material-icons-outlined">verified</span>
+                            </button>
+                            <button type="button" class="btn-text" onclick="voltarDados()">Editar dados</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
-        ${renderActionButtons()}
+        ${renderActionButtonsincricao()}
     `;
 }
+
+function gerarFatura() {
+    const nome = document.getElementById('nome_aluno').value;
+    const phone = document.getElementById('phone').value;
+    const bi = document.getElementById('up-bi').files.length;
+    const cert = document.getElementById('up-cert').files.length;
+
+    if (!nome || !phone || !bi || !cert) {
+        alert("Por favor, preencha todos os dados e anexe os documentos.");
+        return;
+    }
+
+    const ref = "TR-" + Math.floor(1000 + Math.random() * 9000);
+    
+    // Preencher dados na fatura
+    document.getElementById('display-ref').innerText = "#" + ref;
+    document.getElementById('confirm-ref').innerText = ref;
+    document.getElementById('input-ref').value = ref;
+    document.getElementById('confirm-nome').innerText = nome;
+    document.getElementById('confirm-numero').innerText = phone;
+    //document.getElementById('confirm-disciplina1').innerText = document.getElementById('curso1').value;
+
+    // Trocar visões
+    document.getElementById('step-1').classList.add('hidden');
+    document.getElementById('step-2').classList.remove('hidden');
+    
+    // Salvar no localStorage caso a página recarregue
+    localStorage.setItem('temp_reg', JSON.stringify({nome, phone, ref}));
+}
+
+function voltarDados() {
+    document.getElementById('step-2').classList.add('hidden');
+    document.getElementById('step-1').classList.remove('hidden');
+}
+
+// ... (mantenha updateFileName, copiarTexto, etc)
 
 function renderMensalidadeForm() {
     return `
-        <div class="form-view slide-up">
-            <h2 class="main-title">Pagamento de Mensalidade</h2>
-            <p class="description">Preencha os dados para efetuar o pagamento da sua mensalidade.</p>
-            
-            <form id="paymentForm" class="form-grid">
-                <div class="section-group">
-                    <h3 class="section-label">INFORMAÇÕES DE PAGAMENTO</h3>
-                    <div class="input-group">
-                        <label>Mês de Referência *</label>
-                        <input type="month" id="mes" name="mes" required>
-                    </div>
-                    <div class="select-curso">
-                    <h3 class="section-label">SELEÇÃO DA(S) DISCIPLINA(S)</h3>
-                    <div class="input-group">
-                        <label for="curso">Disciplina 1 *</label>
-                        <select id="curso" name="curso" required>
-                            <option value="" disabled selected>Selecione a disciplina</option>
-                            <option value="portugues">Português</option>
-                            <option value="matematica">Matemática</option>
-                            <option value="fisica">Física</option>
-                            <option value="quimica">Química</option>
-                            <option value="historia">História</option>
-                            <option value="biologia">Biologia</option>
-                            <option value="geografia">Geografia</option>
-                            <option value="desenho">Desenho</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="disciplina">Disciplina 2</label>
-                        <select id="curso" name="curso">
-                            <option value="" disabled selected>Selecione a disciplina</option>
-                            <option value="portugues">Português</option>
-                            <option value="matematica">Matemática</option>
-                            <option value="fisica">Física</option>
-                            <option value="quimica">Química</option>
-                            <option value="historia">História</option>
-                            <option value="biologia">Biologia</option>
-                            <option value="geografia">Geografia</option>
-                            <option value="desenho">Desenho</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="curso">Disciplina 3</label>
-                        <select id="curso" name="curso" >
-                            <option value="" disabled selected>Selecione a disciplina</option>
-                            <option value="portugues">Português</option>
-                            <option value="matematica">Matemática</option>
-                            <option value="fisica">Física</option>
-                            <option value="quimica">Química</option>
-                            <option value="historia">História</option>
-                            <option value="biologia">Biologia</option>
-                            <option value="geografia">Geografia</option>
-                            <option value="desenho">Desenho</option>
-                        </select>
-                    </div>
-                </div>  
+        <div class="form-view">
+            <h2 class="main-title">Pagamento de Quotas</h2>
+            <p class="description">Informe seu código de aluno para verificar faturas pendentes.</p>
+            <div class="payment-card-modern">
                 <div class="input-group">
-                    <label>Valor total *</label>
-                    <div class="input-with-addon">
-                        <span class="currency-badge">MZN</span>
-                        <input type="text" id="valor" name="valor_display" placeholder="0,00" inputmode="decimal" class="valor-input" required>
-                    </div>
-                    <input type="hidden" id="valor_raw" name="valor">
+                    <label>Código do Aluno / Membro</label>
+                    <input type="text" placeholder="Ex: TR-2024-001">
                 </div>
-                <section class="section-group">
-                    <div class="payment-header">
-                        <h3 class="section-label">PAGAMENTO DA MENSALIDADE</h3>
-                        <span class="badge-price">650 MT</span>
-                    </div>
-                    <div class="payment-card">
-                        <div class="mpesa-brand">
-                            <span class="mpesa-logo">M-Pesa</span>
-                            <span class="mpesa-text">Pagamento via telemóvel</span>
-                        </div>
-                        <div class="input-group">
-                            <label>Número de Telefone</label>
-                            <div class="phone-wrapper">
-                                <span class="prefix">+258</span>
-                                <input type="tel" id="phone" placeholder="84 123 4567">
-                            </div>
-                        </div>
-                        <p class="helper-text">Será enviada uma notificação para confirmar o pagamento no seu telemóvel.</p>
-                    </div>
-                </section>
+                <button class="btn-primary-full">Verificar Faturas</button>
+                <div class="mpesa-info-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/M-Pesa_Logo.png" style="height:20px">
+                    <span>Pagamento via M-Pesa</span>
                 </div>
-                
-                <button type="submit" class="btn-submit-form" onclick="processPayment()">
-                    Proceder com Pagamento <span class="material-icons-outlined">payment</span>
-                </button>
-            </form>
+            </div>
         </div>
-        ${renderActionButtons()}
+        ${renderActionButtonsincricao()}
     `;
+
 }
 
-// Formatação e UX para input de valor
-function onValorInput(e) {
-    const input = e.target;
-    // manter somente dígitos e separador decimal
-    let v = input.value.replace(/[^0-9.,]/g, '');
-    // permitir apenas um separador decimal
-    const parts = v.split(/[.,]/);
-    if (parts.length > 2) {
-        v = parts.slice(0, parts.length - 1).join('') + '.' + parts[parts.length - 1];
-    }
-    // guardar raw em dataset para usar no blur
-    input.dataset.raw = v.replace(',', '.');
-}
-
-function onValorBlur(e) {
-    const input = e.target;
-    const raw = (input.dataset.raw || input.value).toString().replace(',', '.');
-    const num = parseFloat(raw);
-    if (isNaN(num)) {
-        input.value = '';
-        const hidden = document.getElementById('valor_raw'); if (hidden) hidden.value = '';
-        return;
-    }
-    // formatar para pt-PT com 2 casas decimais
-    input.value = num.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    const hidden = document.getElementById('valor_raw'); if (hidden) hidden.value = num.toFixed(2);
-}
-
-function renderActionButtons() {
+function renderActionButtonsincricao() {
     return `
         <div class="action-panel visible">
             <div class="action-buttons">
@@ -309,28 +243,15 @@ function renderActionButtons() {
                     <span class="material-icons-outlined">home</span>
                     <span class="btn-label">Voltar ao Menu</span>
                 </button>
-                <button class="btn-action btn-action-mensalidade" onclick="loadForm('mensalidade')" title="Ir para Mensalidades">
+                <button class="btn-action btn-action-mensalidade" onclick="loadForm('inscricao')" title="Ir para Inscrição">
                     <span class="material-icons-outlined">payments</span>
-                    <span class="btn-label">Mensalidades</span>
+                    <span class="btn-label">Incrições</span>
                 </button>
             </div>
         </div>
     `;
 }
 
-// Função para validar campos e abrir modal de inscrição
-function checkAndPay() {
-    const form = document.getElementById('registrationForm');
-    if (form.checkValidity()) {
-        document.getElementById('formulariopagamento').showModal();
-    } else {
-        form.reportValidity(); // Mostra alertas nativos de campo vazio
-    }
-}
-
-// ============================================
-// INICIALIZAÇÃO DE BOTÕES DE AÇÃO
-// ============================================
 
 function initActionButtons() {
     const backBtn = document.querySelector('.btn-action-back');
@@ -356,112 +277,232 @@ function initActionButtons() {
 }
 
 // ============================================
-// VALIDAÇÃO E SUBMISSÃO DO FORMULÁRIO
+// LÓGICA DE PAGAMENTO MANUAL (NOVO)
 // ============================================
-function updateFileDisplay(input, statusId) {
-    const statusElement = document.getElementById(statusId);
-    const card = input.closest('.doc-card');
+function validarEGerarPagamento() {
+    const form = document.getElementById('registrationForm');
     
-    if (input.files && input.files[0]) {
-        const fileName = input.files[0].name;
-        statusElement.innerText = "✓ " + fileName;
-        statusElement.style.color = "#10b981";
-        card.style.borderColor = "#10b981";
-        card.style.background = "rgba(16, 185, 129, 0.05)";
+    // Valida se todos os campos (incluindo os 2 arquivos) estão preenchidos
+    if (form.checkValidity()) {
+        const referencia = "INS-" + Math.floor(1000 + Math.random() * 9999);
+        abrirModalMpesa(referencia);
+    } else {
+        form.reportValidity();
     }
 }
 
+function abrirModalMpesa(ref) {
+    let modal = document.getElementById('modalMpesa');
+    if (!modal) {
+        modal = document.createElement('dialog');
+        modal.id = 'modalMpesa';
+        modal.className = 'modern-modal';
+        document.body.appendChild(modal);
+    }
 
+    modal.innerHTML = `
+        <div class="modal-body" style="padding: 2.5rem; position: relative; max-width: 400px;">
+            <span onclick="this.closest('dialog').close()" style="position:absolute; right:1.5rem; top:1rem; cursor:pointer; font-size:1.5rem">×</span>
+            <h3 style="font-weight: 800; margin-bottom: 1.5rem;">PAGAMENTO M-PESA</h3>
+            
+            <div style="background: var(--surface); padding: 1.5rem; border-radius: 1rem; border: 1px solid var(--border); margin-bottom: 1.5rem;">
+                <p style="font-size: 0.8rem; color: var(--text-sec); margin-bottom: 0.5rem;">1. Valor a enviar: <b>500.00 MT</b></p>
+                <div onclick="copiarTexto('841234567')" style="display:flex; justify-content:space-between; background:var(--bg); padding:0.8rem; border-radius:0.5rem; cursor:pointer; border:1px solid var(--border); margin-bottom:1rem">
+                    <span style="font-weight:700">84 123 4567</span> <span class="material-icons-outlined">content_copy</span>
+                </div>
+                
+                <p style="font-size: 0.8rem; color: var(--text-sec); margin-bottom: 0.5rem;">2. Use esta Referência:</p>
+                <div onclick="copiarTexto('${ref}')" style="display:flex; justify-content:space-between; background:rgba(24,24,27,0.05); padding:0.8rem; border-radius:0.5rem; cursor:pointer; border:2px dashed var(--primary)">
+                    <span style="font-weight:700">${ref}</span> <span class="material-icons-outlined">content_copy</span>
+                </div>
+            </div>
+
+            <label style="display:block; margin-bottom:0.5rem; font-size:0.85rem; font-weight:600">3. Introduza o Código da Transação:</label>
+            <input type="text" id="cod_mpesa" placeholder="Ex: RJ82..." style="width:100%; padding:1rem; border-radius:0.8rem; border:1px solid var(--border); text-transform:uppercase; margin-bottom: 1rem;">
+            
+            <button class="btn-primary-full" onclick="finalizarProcesso('${ref}')">Confirmar Envio</button>
+        </div>
+    `;
+    modal.showModal();
+}
+
+function finalizarProcesso(ref) {
+    const cod = document.getElementById('cod_mpesa').value;
+    if (cod.length < 5) {
+        alert("Por favor, introduza o código da transação M-Pesa recebido por SMS.");
+        return;
+    }
+
+
+    document.getElementById('modalMpesa').close();
+    const container = document.getElementById('dynamic-content');
+    
+    // Sucesso - Mostra a tela de confirmação sem deixar em branco
+    container.innerHTML = `
+        <div class="success-view fade-in" style="text-align:center; padding: 4rem 1.5rem;">
+            <span class="material-icons-outlined" style="font-size:5rem; color:#10b981">history_toggle_off</span>
+            <h2 style="margin: 1.5rem 0 0.5rem 0;">Aguardando Confirmação</h2>
+            <p style="color:var(--text-sec); margin-bottom: 2rem;">Sua inscrição (Referência: <b>${ref}</b>) está sendo verificada. O código <b>${cod}</b> foi registrado.</p>
+            <button class="btn-primary-full" onclick="location.reload()">Voltar ao Perfil</button>
+        </div>
+    `;
+
+}
 // ============================================
-// INICIALIZAÇÃO DE LISTENERS
+// UTILITÁRIOS E AUXILIARES (MANTIDOS)
 // ============================================
+
+function updateFileName(input, statusId) {
+    const status = document.getElementById(statusId);
+    if (input.files[0]) {
+        status.innerText = "✓ " + input.files[0].name;
+        status.style.color = "#10b981";
+    }
+}
 
 function initFormListeners() {
-    // Modal de Pagamento
-    const dialog = document.getElementById("formulariopagamento");
-    const closeBtn = document.getElementById("fecharpagamento");
-    
-    if (closeBtn && dialog) {
-        closeBtn.addEventListener("click", function() {
-            dialog.close();
-        });
-    }
-    
-    // Formatação de Telefone/Contacto
-    const phoneInput = document.getElementById('contacto');
+    const phoneInput = document.getElementById('phone');
     if (phoneInput) {
         phoneInput.addEventListener('input', formatPhoneNumber);
-    }
-    
-    // Melhorias do Select de Cursos
-    initCursoSelect();
-
-    // Listeners para input de valor (format/UX)
-    const valorInput = document.getElementById('valor');
-    if (valorInput) {
-        valorInput.addEventListener('input', onValorInput);
-        valorInput.addEventListener('blur', onValorBlur);
-        valorInput.addEventListener('focus', function(e) {
-            const raw = e.target.dataset.raw || e.target.value;
-            e.target.value = (raw || '').toString().replace('.', ',');
-        });
-    }
-}
-
-function initCursoSelect() {
-    const cursoSelect = document.getElementById('curso');
-    
-    if (cursoSelect) {
-        // Adicionar visual feedback ao selecionar
-        cursoSelect.addEventListener('change', function() {
-            if (this.value !== '') {
-                this.style.borderColor = '#10b981';
-                this.style.backgroundColor = 'rgba(16, 185, 129, 0.05)';
-            }
-        });
-        
-        // Remover feedback ao clicar
-        cursoSelect.addEventListener('focus', function() {
-            this.style.borderColor = 'var(--primary)';
-        });
-        
-        // Restaurar ao sair se vazio
-        cursoSelect.addEventListener('blur', function() {
-            if (this.value === '') {
-                this.style.borderColor = 'var(--border)';
-                this.style.backgroundColor = 'var(--surface)';
-            }
-        });
     }
 }
 
 function formatPhoneNumber(e) {
-    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não é dígito
-    
-    // Limita a 9 dígitos (padrão 82/83/84/85/86/87...)
+    let value = e.target.value.replace(/\D/g, "");
     if (value.length > 9) value = value.slice(0, 9);
-    
-    // Aplica a formatação 84 123 4567
     if (value.length > 5) {
         value = value.replace(/^(\d{2})(\d{3})(\d{4}).*/, "$1 $2 $3");
     } else if (value.length > 2) {
         value = value.replace(/^(\d{2})(\d{0,3}).*/, "$1 $2");
     }
-    
     e.target.value = value;
 }
 
-// ============================================
-// TEMA (MODO CLARO/ESCURO)
-// ============================================
-
 function toggleTheme() {
     const isDark = document.body.classList.toggle('dark-mode');
-    document.body.classList.toggle('light-mode', !isDark);
-    
     const icon = document.getElementById('theme-icon');
-    icon.innerText = isDark ? 'light_mode' : 'dark_mode';
-    
-    // Persistir preferência no localStorage
-    localStorage.setItem('theme', isDark ? 'dark-mode' : 'light-mode');
+    if (icon) {
+        icon.innerText = isDark ? 'light_mode' : 'dark_mode';
+    }
+}
+
+// ============================================
+// VISUALIZAÇÃO E DOWNLOAD DA FATURA (PDF)
+// ============================================
+function mostrarFaturaDownload() {
+    const container = document.getElementById('dynamic-content');
+    const temp = JSON.parse(localStorage.getItem('temp_reg') || 'null');
+    const ref = (document.getElementById('input-ref') && document.getElementById('input-ref').value) || (temp && temp.ref) || ('TR-' + Math.floor(1000 + Math.random() * 9000));
+    const nome = (document.getElementById('confirm-nome') && document.getElementById('confirm-nome').innerText) || (temp && temp.nome) || '---';
+    const numero = (document.getElementById('confirm-numero') && document.getElementById('confirm-numero').innerText) || (temp && temp.phone) || '---';
+    const cod = document.getElementById('cod_mpesa') ? document.getElementById('cod_mpesa').value : '---';
+
+    container.innerHTML = `
+        <div class="invoice-download-view fade-in" style="max-width:900px; margin: 2rem auto; padding:0 1rem;">
+            <div id="invoice-pdf" style="padding:2rem; border-radius:1rem; background:var(--white); border:1px solid var(--border); color:var(--text-main);">
+                <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                    <div>
+                        <h2 style="; color:var(--primary); text-align: center;">Turma dos Revoltados</h2>
+                        <div style="color:var(--text-sec); font-size:0.9rem;">Fatura Proforma</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-weight:800; font-size:1rem;">Ref: ${ref}</div>
+                        <div style="color:var(--text-sec); font-size:0.85rem;">Valor: <strong>500.00 MT</strong></div>
+                    </div>
+                </header>
+
+                <section style="display:flex; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
+                    <div style="flex:1; min-width:230px;">
+                        <p style="margin:0; color:var(--text-sec);">Candidato</p>
+                        <h3 style="margin:0.25rem 0 0 0;">${nome}</h3>
+                        <p style="margin:0.25rem 0 0 0; color:var(--text-sec)">${numero}</p>
+                    </div>
+                    <div style="flex:1; min-width:230px;">
+                        <p style="margin:0; color:var(--text-sec)">Serviço</p>
+                        <h4 style="margin:0.25rem 0 0 0;">Inscrição Anual</h4>
+                        <p style="margin:0.25rem 0 0 0; color:var(--text-sec)">Validade: 30 dias</p>
+                    </div>
+                </section>
+
+                <hr style="border:none; border-top:1px solid var(--border); margin:1rem 0;">
+
+                <p style="font-size:0.85rem; color:var(--text-sec);">Instruções de Pagamento via M-Pesa:</p>
+                <div style="display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap;">
+                    <div style="flex:1; min-width:180px; background:var(--surface); padding:0.75rem; border-radius:0.6rem; border:1px solid var(--border);">
+                        <strong>Número</strong>
+                        <div style="margin-top:0.25rem; font-weight:700">84 123 4567</div>
+                    </div>
+                    <div style="flex:1; min-width:180px; background:rgba(24,24,27,0.03); padding:0.75rem; border-radius:0.6rem; border:1px dashed var(--primary);">
+                        <strong>Referência</strong>
+                        <div style="margin-top:0.25rem; font-weight:700">${ref}</div>
+                        
+                    </div>
+                </div>
+                <div style="display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap;">
+                    <div style="flex:1; min-width:180px; background:rgba(24,24,27,0.03); padding:0.75rem; border-radius:0.6rem; border:1px dashed var(--primary);">
+                        <strong>Código da transação</strong>
+                        <div style="margin-top:0.25rem; font-weight:700">${cod}</div>
+                </div>
+
+                <div style="margin-top:1.25rem; font-size:0.85rem; color:var(--text-sec);">
+                    <p>Após efetuar o pagamento, guarde o código da transação e utilize a opção de enviar para confirmação junto à nossa equipa.</p>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.75rem; justify-content:flex-end; margin-top:1.25rem;">
+                <button id="backFromInvoice" class="btn-text" style="padding:0.85rem 1rem; border-radius:0.8rem; border:1px solid var(--border); background:transparent;">Voltar</button>
+                <button id="downloadPdfBtn" class="btn-primary-full" style="padding:0.85rem 1rem;">Baixar PDF <span class="material-icons-outlined">download</span></button>
+            </div>
+        </div>
+    `;
+
+    // instalar handlers
+    const downloadBtn = document.getElementById('downloadPdfBtn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function () {
+            const element = document.getElementById('invoice-pdf');
+            const opt = {
+                margin:       0.4,
+                filename:     `${ref}_fatura.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            if (window.html2pdf) {
+                html2pdf().set(opt).from(element).save();
+            } else {
+                alert('Erro: biblioteca de geração de PDF não carregada.');
+            }
+        });
+    }
+
+    const backBtn = document.getElementById('backFromInvoice');
+    if (backBtn) {
+        backBtn.addEventListener('click', function () {
+            // Voltar para o formulário da inscrição e restaurar a vista da fatura (step-2) se houver dados temporários
+            loadForm('inscricao');
+            setTimeout(() => {
+                const temp2 = JSON.parse(localStorage.getItem('temp_reg') || 'null');
+                if (temp2) {
+                    const inp = document.getElementById('input-ref');
+                    if (inp) inp.value = temp2.ref;
+                    const disp = document.getElementById('display-ref');
+                    if (disp) disp.innerText = '#' + temp2.ref;
+                    const cr = document.getElementById('confirm-ref');
+                    if (cr) cr.innerText = temp2.ref;
+                    const cn = document.getElementById('confirm-nome');
+                    if (cn) cn.innerText = temp2.nome;
+                    const cnum = document.getElementById('confirm-numero');
+                    if (cnum) cnum.innerText = temp2.phone;
+
+                    const s1 = document.getElementById('step-1');
+                    const s2 = document.getElementById('step-2');
+                    if (s1 && s2) {
+                        s1.classList.add('hidden');
+                        s2.classList.remove('hidden');
+                    }
+                }
+            }, 350);
+        });
+    }
 }

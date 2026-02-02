@@ -1,71 +1,245 @@
+function renderInscricaoForm() {
+    return `
+        <div class="form-view slide-up">
+            <h2 class="main-title">Nova Inscrição</h2>
+            <p class="description">Preencha os campos obrigatórios para liberar o pagamento.</p>
+            
+            <form id="registrationForm" class="form-grid">
+                <div class="section-group">
+                    <h3 class="section-label">DADOS PESSOAIS</h3>
+                    <div class="input-group">
+                        <label>Nome Completo *</label>
+                        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+                    </div>
+                    <div class="input-group">
+                        <label>E-mail / Contacto *</label>
+                        <input type="text" id="contact" name="contacto" placeholder="8x xxx xxxx" >
+                    </div>
+                </div>
 
-// Lógica de envio e integração com PaySuite
-async function processarInscricao() {
-    const form = document.getElementById('registrationForm');
-    const btnText = document.getElementById('btnText');
-    const btn = document.getElementById('btnConfirmar');
+                <div class="select-curso">
+                    <h3 class="section-label">SELEÇÃO DA(S) DISCIPLINA(S)</h3>
+                    <div class="input-group">
+                        <label for="curso">DISCIPLINA 1 *</label>
+                        <select id="curso" name="curso" >
+                            <option value="" disabled selected>Selecione a disciplina desejada</option>
+                            <option value="portugues">Português</option>
+                            <option value="matematica">Matemática</option>
+                            <option value="fisica">Física</option>
+                            <option value="quimica">Química</option>
+                            <option value="historia">História</option>
+                            <option value="biologia">Biologia</option>
+                            <option value="geografia">Geografia</option>
+                            <option value="desenho">Desenho</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="curso">DISCIPLINA 2 </label>
+                        <select id="curso" name="curso">
+                            <option value="" disabled selected>Selecione a disciplina desejada</option>
+                            <option value="portugues">Português</option>
+                            <option value="matematica">Matemática</option>
+                            <option value="fisica">Física</option>
+                            <option value="quimica">Química</option>
+                            <option value="historia">História</option>
+                            <option value="biologia">Biologia</option>
+                            <option value="geografia">Geografia</option>
+                            <option value="desenho">Desenho</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="curso">DISCIPLINA 3 </label>
+                        <select id="curso" name="curso" >
+                            <option value="" disabled selected>Selecione a disciplina desejada</option>
+                            <option value="portugues">Português</option>
+                            <option value="matematica">Matemática</option>
+                            <option value="fisica">Física</option>
+                            <option value="quimica">Química</option>
+                            <option value="historia">História</option>
+                            <option value="biologia">Biologia</option>
+                            <option value="geografia">Geografia</option>
+                            <option value="desenho">Desenho</option>
+                        </select>
+                    </div>
+                </div>
 
-    // 1. Validação Obrigatória
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
+                <div class="section-group">
+                    <h3 class="section-label">DOCUMENTAÇÃO</h3>
+                    <div class="docs-container">
+                        <label class="doc-card" for="up-bi">
+                            <div class="doc-main">
+                                <div class="icon-circle"><span class="material-icons-outlined">badge</span></div>
+                                <div class="doc-text">
+                                    <span class="doc-name">BI / DIRE *</span>
+                                    <span class="doc-status" id="st-bi">Selecione o arquivo</span>
+                                </div>
+                            </div>
+                            <input type="file" id="up-bi" hidden onchange="updateFileDisplay(this, 'st-bi')" >
+                            <div class="upload-icon-box"><span class="material-icons-outlined">file_upload</span></div>
+                        </label>
 
-    // 2. Feedback de Carregamento
-    btn.disabled = true;
-    btnText.innerText = "Processando Inscrição...";
+                        <label class="doc-card" for="up-cert">
+                            <div class="doc-main">
+                                <div class="icon-circle"><span class="material-icons-outlined">school</span></div>
+                                <div class="doc-text">
+                                    <span class="doc-name">Certificado *</span>
+                                    <span class="doc-status" id="st-cert">Certificado de Habilitações</span>
+                                </div>
+                            </div>
+                            <input type="file" id="up-cert" hidden onchange="updateFileDisplay(this, 'st-cert')" >
+                            <div class="upload-icon-box"><span class="material-icons-outlined">file_upload</span></div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-submit-form" id="pagamento" onclick="checkAndPay()">
+                    Enviar Dados e Pagar <span class="material-icons-outlined">arrow_forward</span>
+                </button>
+            </form>
+        </div>
+        ${renderActionButtons()}
+    `;
+}
+
+function renderMensalidadeForm() {
+    return `
+        <div class="form-view slide-up">
+            <h2 class="main-title">Pagamento de Mensalidade</h2>
+            <p class="description">Preencha os dados para efetuar o pagamento da sua mensalidade.</p>
+            
+            <form id="paymentForm" class="form-grid">
+                <div class="section-group">
+                    <h3 class="section-label">INFORMAÇÕES DE PAGAMENTO</h3>
+                    <div class="input-group">
+                        <label>Mês de Referência *</label>
+                        <input type="month" id="mes" name="mes" required>
+                    </div>
+                    <div class="select-curso">
+                    <h3 class="section-label">SELEÇÃO DA(S) DISCIPLINA(S)</h3>
+                    <div class="input-group">
+                        <label for="curso">Disciplina 1 *</label>
+                        <select id="curso" name="curso" required>
+                            <option value="" disabled selected>Selecione a disciplina</option>
+                            <option value="portugues">Português</option>
+                            <option value="matematica">Matemática</option>
+                            <option value="fisica">Física</option>
+                            <option value="quimica">Química</option>
+                            <option value="historia">História</option>
+                            <option value="biologia">Biologia</option>
+                            <option value="geografia">Geografia</option>
+                            <option value="desenho">Desenho</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="disciplina">Disciplina 2</label>
+                        <select id="curso" name="curso">
+                            <option value="" disabled selected>Selecione a disciplina</option>
+                            <option value="portugues">Português</option>
+                            <option value="matematica">Matemática</option>
+                            <option value="fisica">Física</option>
+                            <option value="quimica">Química</option>
+                            <option value="historia">História</option>
+                            <option value="biologia">Biologia</option>
+                            <option value="geografia">Geografia</option>
+                            <option value="desenho">Desenho</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="curso">Disciplina 3</label>
+                        <select id="curso" name="curso" >
+                            <option value="" disabled selected>Selecione a disciplina</option>
+                            <option value="portugues">Português</option>
+                            <option value="matematica">Matemática</option>
+                            <option value="fisica">Física</option>
+                            <option value="quimica">Química</option>
+                            <option value="historia">História</option>
+                            <option value="biologia">Biologia</option>
+                            <option value="geografia">Geografia</option>
+                            <option value="desenho">Desenho</option>
+                        </select>
+                    </div>
+                </div>  
+                <div class="input-group">
+                    <label>Valor total *</label>
+                    <div class="input-with-addon">
+                        <span class="currency-badge">MZN</span>
+                        <input type="text" id="valor" name="valor_display" placeholder="0,00" inputmode="decimal" class="valor-input" required>
+                    </div>
+                    <input type="hidden" id="valor_raw" name="valor">
+                </div>
+                <section class="section-group">
+                    <div class="payment-header">
+                        <h3 class="section-label">PAGAMENTO DA MENSALIDADE</h3>
+                        <span class="badge-price">650 MT</span>
+                    </div>
+                    <div class="payment-card">
+                        <div class="mpesa-brand">
+                            <span class="mpesa-logo">M-Pesa</span>
+                            <span class="mpesa-text">Pagamento via telemóvel</span>
+                        </div>
+                        <div class="input-group">
+                            <label>Número de Telefone</label>
+                            <div class="phone-wrapper">
+                                <span class="prefix">+258</span>
+                                <input type="tel" id="phone" placeholder="84 123 4567">
+                            </div>
+                        </div>
+                        <p class="helper-text">Será enviada uma notificação para confirmar o pagamento no seu telemóvel.</p>
+                    </div>
+                </section>
+                </div>
+                
+                <button type="submit" class="btn-submit-form" onclick="processPayment()">
+                    Proceder com Pagamento <span class="material-icons-outlined">payment</span>
+                </button>
+            </form>
+        </div>
+        ${renderActionButtons()}
+    `;
+}
+
+function renderActionButtons() {
+    return `
+        <div class="action-panel visible">
+            <div class="action-buttons">
+                <button class="btn-action btn-action-back" onclick="backToMenu()" title="Voltar ao Menu">
+                    <span class="material-icons-outlined">home</span>
+                    <span class="btn-label">Voltar ao Menu</span>
+                </button>
+                <button class="btn-action btn-action-mensalidade" onclick="loadForm('mensalidade')" title="Ir para Mensalidades">
+                    <span class="material-icons-outlined">payments</span>
+                    <span class="btn-label">Mensalidades</span>
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+
+
+// ============================================
+// INICIALIZAÇÃO DE BOTÕES DE AÇÃO
+// ============================================
+
+function initActionButtons() {
+    const backBtn = document.querySelector('.btn-action-back');
+    const mensalidadeBtn = document.querySelector('.btn-action-mensalidade');
     
-    try {
-        // 3. Chamada para a API (Simulada com base no seu código)
-        const response = await fetch("https://paysuite.tech/api/v1/payments", {
-            method: "POST",
-            headers: {
-                "Authorization": "Bearer {YOUR_AUTH_KEY}",
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify({
-                "amount": "100.50",
-                "reference": "INV" + Date.now(), // Referência dinâmica
-                "description": "Inscrição Turma dos Revoltados - " + document.getElementById('nome').value,
-                "return_url": window.location.href, // Volta para cá
-                "callback_url": "https://seu-servidor.com/webhook" 
-            })
+    if (backBtn) {
+        backBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.02)';
         });
-
-        const result = await response.json();
-
-        if (result.status === "success" && result.data.checkout_url) {
-            // 4. Redirecionar para o Checkout da PaySuite
-            window.location.href = result.data.checkout_url;
-        } else {
-            alert("Erro ao gerar pagamento. Tente novamente.");
-            resetButton();
-        }
-
-    } catch (error) {
-        console.error("Erro na API:", error);
-        alert("Falha na conexão com o servidor de pagamentos.");
-        resetButton();
+        backBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
     }
-}
-
-function resetButton() {
-    const btn = document.getElementById('btnConfirmar');
-    const btnText = document.getElementById('btnText');
-    btn.disabled = false;
-    btnText.innerText = "Confirmar e Ir para Pagamento";
-}
-
-// Função de atualização de arquivos (Mantendo sua lógica visual)
-function updateFileDisplay(input, statusId) {
-    const statusElement = document.getElementById(statusId);
-    const card = input.closest('.doc-card');
     
-    if (input.files && input.files[0]) {
-        statusElement.innerText = "✓ " + input.files[0].name;
-        statusElement.style.color = "#10b981";
-        card.style.borderColor = "#10b981";
-        card.style.background = "rgba(16, 185, 129, 0.05)";
+    if (mensalidadeBtn) {
+        mensalidadeBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.02)';
+        });
+        mensalidadeBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
     }
 }
